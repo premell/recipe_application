@@ -5,8 +5,10 @@ import RecipeList from "../components/RecipeList"
 import CategoryFilter from "../components/CategoryFilter"
 import RarityFilter from "../components/RarityFilter"
 import IngredientFilter from "../components/IngredientFilter"
+import EditRecipe from "../components/EditRecipe"
 
-import recipes from "../data.js"
+import { useMobxStore } from "../MobxContext"
+import { recipes, availableIngredients, availableRarity, availableCategories  } from "../data"
 
 
 const Home = () => {
@@ -16,12 +18,16 @@ const Home = () => {
 	const [rarityFilters, setRarityFilters] = useState(['none'])
 	const [ingredientFilters, setIngredientFilters] = useState(['none'])
 
-	useEffect(() => {
-		setFilteredRecipes(recipes.recipes)
-	}, [recipes.recipes])
+	const mobxStore = useMobxStore()
+
+	console.log(recipes)
 
 	useEffect(() => {
-		let recipesToFilter = recipes.recipes
+		setFilteredRecipes(recipes)
+	}, [recipes])
+
+	useEffect(() => {
+		let recipesToFilter = recipes
 
 		categoryFilters.forEach((category,index) => {
 			recipesToFilter = recipesToFilter.filter(recipe =>  !recipe.categories.includes(category))
@@ -53,6 +59,7 @@ const Home = () => {
 
 	return(
 		<>
+			<EditRecipe className={`${mobxStore.showEdit} ? '':'hidden'`}/>
 			<CategoryFilter updateCategoryFilters={updateCategoryFilters}/>
 			<RarityFilter updateRarityFilters={updateRarityFilters}/>
 			<IngredientFilter updateIngredientsFilters={updateIngredientsFilters}/>

@@ -3,7 +3,8 @@ import React from "react"
 const ErrorPage = () => {
 	return(
 		<div>
-		hejsan</div>
+		This is not a valid url
+		</div>
 	)
 }
 

@@ -1,6 +1,6 @@
 import React from "react"
 
-import RecipeCard from "./RecipeCard.js"
+import RecipeCard from "./RecipeCard"
  
 const RecipeList = ({recipes}) => {
 	return(
