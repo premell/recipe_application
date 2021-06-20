@@ -9,7 +9,7 @@ const CategoryFilter = ({ updateCategoryFilters }) => {
 
 	const updateCategories = () => {
 		//const categories = ["Desert","Vegetarian"]
-		const categories = ["Desert"]
+		const categories = [""]
 		console.log("inside CategoryFilter ", categories)
 		updateCategoryFilters(categories)
 	}

@@ -1,6 +1,21 @@
 
+.container{
+	background-color: gray;
+	position:absolute; 
+	width: 80%;
+	height: 70%;
+	left: 10%;
+	top:5%;
 
 
-.hidden{
-	display:hidden
+}
+
+.content_container{
+	padding-top: 10%;
+	display:flex;
+	justify-content: center;
+}
+
+.button{
+	height:20px;
 }

@@ -1,6 +1,12 @@
+
+
+
 export function createMobxStore(){
 	return {
-		currentlyEdited: {name:"Pancakes"},
+		currentlyEdited: {name:"Pancakes", id: "V1StGXR8_Z5jdHi6B-myT", 
+		categories:[
+			"Main course"
+		],},
 		setCurrentlyEdited(recipe){
 			this.currentlyEdited = recipe
 		},
