@@ -9,8 +9,7 @@ const CategoryFilter = ({ updateCategoryFilters }) => {
 
 	const updateCategories = () => {
 		//const categories = ["Desert","Vegetarian"]
-		const categories = [""]
-		console.log("inside CategoryFilter ", categories)
+		const categories = ["all"]
 		updateCategoryFilters(categories)
 	}
 	useEffect(() => {

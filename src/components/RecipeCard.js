@@ -1,4 +1,5 @@
 import React from "react"
+import {Link } from "react-router-dom"
 
 import { useMobxStore } from "../MobxContext"
 
@@ -7,16 +8,22 @@ const RecipeCard = ({recipe}) => {
 	const mobxStore = useMobxStore()
 
 	const setEdited = () => {
-		console.log("clicked")
 		mobxStore.setShowEdit()
 		mobxStore.setCurrentlyEdited(recipe)
-		console.log("recipe in recipecard ", recipe)
+	}
+
+	const goToDetails = () => {
+				
+
+
 	}
 
 	return(
 		<>
-
-		<div>
+			<Link to={`/recipe/${recipe.id}`}>
+				details
+				</Link>
+		<div onClick={goToDetails}>
 		{recipe.name}
 		</div>
 		<button onClick={setEdited}>Edit</button>

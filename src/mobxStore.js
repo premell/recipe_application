@@ -1,4 +1,5 @@
 
+import { makePersistable } from 'mobx-persist-store';
 
 
 export function createMobxStore(){
@@ -11,7 +12,7 @@ export function createMobxStore(){
 			this.currentlyEdited = recipe
 		},
 		removeCurrentlyEdited(recipe){
-			this.currentlyEdited = []
+			this.currentlyEdited = {}
 		},
 		showEdit:false,
 		setShowEdit(){
@@ -19,6 +20,7 @@ export function createMobxStore(){
 		},
 		setHideEdit(){
 			this.showEdit = false
-		}
+		},
+		currentlyLoading: false,
 	}
 }

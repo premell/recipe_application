@@ -1,6 +1,7 @@
 import Home from "./pages/Home"
 import AddRecipe from "./pages/AddRecipe"
 import GenerateList from "./pages/GenerateList"
+import DetailedRecipe from "./pages/DetailedRecipe"
 import ErrorPage from "./pages/ErrorPage"
 import Navbar from "./components/Navbar"
 
@@ -22,6 +23,9 @@ function App() {
         </Route>
         <Route path="/generate_list">
           <GenerateList/>
+        </Route>
+        <Route path="/recipe/:id">
+          <DetailedRecipe/>
         </Route>
         <Route path="*">
           <ErrorPage/>

@@ -2,7 +2,8 @@ export const recipes = [
 	{
 		name:"Meat Balls",
 		categories:[
-			"Desert"
+			"Desert",
+			"Vegetarian"
 		],
 		id:"1StGXR8_Z5jdHi6B-myT"
 	},

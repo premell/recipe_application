@@ -16,16 +16,14 @@ import { recipes, availableIngredients, availableRarity, availableCategories  } 
 const Home = observer(() => {
 
 	const [filteredRecipes, setFilteredRecipes] = useState([])
-	const [categoryFilters, setCategoryFilters] = useState(['none'])
-	const [rarityFilters, setRarityFilters] = useState(['none'])
-	const [ingredientFilters, setIngredientFilters] = useState(['none'])
+	const [categoryFilters, setCategoryFilters] = useState(['all'])
+	const [rarityFilters, setRarityFilters] = useState(['all'])
+	const [ingredientFilters, setIngredientFilters] = useState(['all'])
 
 	const mobxStore = useMobxStore()
 
-	console.log(recipes)
 
 	useEffect(() => {
-		console.log("in Home ", mobxStore.showEdit)
 	},[mobxStore.showEdit])
 
 
@@ -36,15 +34,23 @@ const Home = observer(() => {
 	useEffect(() => {
 		let recipesToFilter = recipes
 
+		if(!categoryFilters.includes("all")){
 		categoryFilters.forEach((category,index) => {
 			recipesToFilter = recipesToFilter.filter(recipe => recipe.categories.includes(category))
 		})
-		rarityFilters.forEach((category,index) => {
-			recipesToFilter = recipesToFilter.filter(recipe => recipe.categories.includes(category))
+
+		}
+		if(!categoryFilters.includes("all")){
+
+		rarityFilters.forEach((rarity,index) => {
+			recipesToFilter = recipesToFilter.filter(recipe => recipe.categories.includes(rarity))
 		})
-		ingredientFilters.forEach((category,index) => {
-			recipesToFilter = recipesToFilter.filter(recipe => recipe.categories.includes(category))
+		}
+		if(!categoryFilters.includes("all")){
+		ingredientFilters.forEach((ingredient,index) => {
+			recipesToFilter = recipesToFilter.filter(recipe => recipe.categories.includes(ingredient))
 		})
+			}
 
 		setFilteredRecipes(recipesToFilter)
 	
@@ -52,7 +58,6 @@ const Home = observer(() => {
 
 
 	const updateCategoryFilters = (categories) => {
-    console.log("categories ",  categories)
 		setCategoryFilters(categories)
 	}
 
