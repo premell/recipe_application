@@ -1,69 +1,87 @@
 import React from "react"
 import { useEffect} from "react"
 
-import { useMobxStore } from "../MobxContext"
-import {observer} from "mobx-react"
-import { toJS } from "mobx"
-import useState from "react-usestateref"
 
 import "./EditRecipe.css"
-import { recipes} from "../data"
 
 import { useDetectClickOutside } from 'react-detect-click-outside';
-import { flattenObject } from "../utils/flattenObject"
 import { compareObjects } from "../utils/compareObjects"
 
+import {useRecoilState } from "recoil"
+import {updatedRecipe as updatedRecipeAtom, unsavedWarning as unsavedWarningAtom, editSaved as editSavedAtom, recipes as recipesAtom, showEdit as showEditAtom, currentlyEdited as currentlyEditedAtom } from "../atoms"
 
+let localShowEdit
+let localIsSaved
+let localUnsavedWarning
+let localUpdatedRecipe 
 
-const EditRecipe  = observer(() => {
+const EditRecipe  = () => {
 
-	const mobxStore = useMobxStore()
-
-	const [ updatedRecipe, setUpdatedRecipe, updatedRecipeRef] = useState({})
+	const [ currentlyEdited, setCurrentlyEdited] = useRecoilState(currentlyEditedAtom)
+	const [ showEdit, setShowEdit] = useRecoilState(showEditAtom)
+	const [ recipes, setRecipes] = useRecoilState(recipesAtom)
+	const [editSaved, setEditSaved] = useRecoilState(editSavedAtom);
+	const [unsavedWarning, setUnsavedWarning] =useRecoilState(unsavedWarningAtom);
+	const [ updatedRecipe, setUpdatedRecipe] = useRecoilState(updatedRecipeAtom)
 
 	useEffect(() => {
-		setUpdatedRecipe(toJS(mobxStore.currentlyEdited))
-		console.log("currentlyUpdated ", updatedRecipeRef.current)
-	}, [mobxStore.currentlyEdited])
+		setUpdatedRecipe(currentlyEdited)
+	}, [currentlyEdited])
+
+	useEffect(() => {
+		localShowEdit = showEdit
+	}, [showEdit, setUpdatedRecipe])
+	useEffect(() => {
+		localIsSaved= editSaved
+	}, [editSaved])
+	useEffect(() => {
+		localUnsavedWarning = unsavedWarning
+	}, [unsavedWarning])
+
+	useEffect(() => {
+		localUpdatedRecipe = updatedRecipe
+		let savedRecipe = recipes.filter(recipe => recipe.id === updatedRecipe.id)	
+		if(compareObjects(updatedRecipe, savedRecipe[0])) setEditSaved(true)
+		else setEditSaved(false)
+	},[updatedRecipe, recipes])
 
 	const save = () => {
-
-
+		const allUpdatedRecipes = recipes.map(recipe => recipe.id === localUpdatedRecipe.id ? localUpdatedRecipe : recipe)
+		setRecipes(allUpdatedRecipes, [setEditSaved]) 
 	}
 
-	const closeEdit = () =>{
-		const currentUpdated = updatedRecipeRef.current
-
-		const recipeIsEmpty = Object.keys(currentUpdated).length === 0
-		if(mobxStore.showEdit === false || recipeIsEmpty) return
-
-
-		//console.log(currentUpdated)
-		let recipeToEdit = recipes.filter(recipe => recipe.id === currentUpdated.id)
-		//console.log("LENGTH ", recipeToEdit.length)
-
-		if(compareObjects(recipeToEdit[0], currentUpdated)){
-			console.log("save before exiting!")
-		}else{
-			setUpdatedRecipe({})
-			mobxStore.removeCurrentlyEdited()
-			mobxStore.setHideEdit()
+	const closeEdit = (e) =>{
+		if(!localIsSaved && !localUnsavedWarning){
+			setUnsavedWarning(true)
+			return
+		}
+		if(localIsSaved && localShowEdit){
+		 setUpdatedRecipe({})
+		 setShowEdit(false)
+		 setCurrentlyEdited({})
 		}
 	}
 
+
 const ref = useDetectClickOutside({ onTriggered: closeEdit});
+
+const change = (e) => {
+	setUpdatedRecipe({...localUpdatedRecipe, name:e.target.value})
+	} 
 
 	return(
 		<>
 		<div className="container" ref={ref}>
-				<button className="button" onClick={closeEdit}>Close</button>
+				<button className="button" onClick={() => closeEdit}>Close</button>
 				<div className="content_container">
+					<input onChange={change} value={updatedRecipe.name}/>
 				<div className="input_field">{updatedRecipe.name}</div>
 				<button className="button" onClick={save}>Save</button>
 				</div>
+				<div>{updatedRecipe.name}</div>
 		</div>
 		</>
 	)
-})
+}
 
 export default EditRecipe  

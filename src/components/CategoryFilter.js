@@ -3,23 +3,23 @@ import  {useEffect} from "react"
 
 import DropDown from "../components/DropDown.js"
 
-import availableCategories from "../data.js"
+import {useRecoilState } from "recoil"
+import {availableCategories as availableCategoriesAtom} from "../atoms"
 
 const CategoryFilter = ({ updateCategoryFilters }) => {
 
+	const [ availableCategories, setAvailableCategories] = useRecoilState(availableCategoriesAtom)
+
 	const updateCategories = () => {
-		//const categories = ["Desert","Vegetarian"]
 		const categories = ["all"]
 		updateCategoryFilters(categories)
 	}
 	useEffect(() => {
-
 		updateCategories()
-
 	},[])
 
 	return(
-		<DropDown updateSelected={updateCategories} possibleAlternatives={availableCategories.availableCategories} />
+		<DropDown updateSelected={updateCategories} possibleAlternatives={availableCategories} />
 	)
 }
 export default CategoryFilter 

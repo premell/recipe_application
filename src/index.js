@@ -2,16 +2,17 @@ import React from 'react';
 import { render } from 'react-dom';
 import App from './App';
 
-import {MobxProvider } from "./MobxContext"
+import {RecoilRoot } from "recoil"
 
 
 
 render(
 	<React.StrictMode>
 
-	<MobxProvider>
-		<App />
-	</MobxProvider>
+		<RecoilRoot >
+
+    <App />
+		</RecoilRoot>
 
 	</React.StrictMode>,
 	document.getElementById("root")

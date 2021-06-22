@@ -5,8 +5,8 @@ import RecipeCard from "./RecipeCard"
 const RecipeList = ({recipes}) => {
 	return(
 		<>
-		{recipes.map((recipe,index) =>{
-			return <RecipeCard key={index} recipe={recipe}/>
+		{recipes.map((recipe) =>{
+			return <RecipeCard key={recipe.id} recipe={recipe}/>
 		})}
 			</>
 	)

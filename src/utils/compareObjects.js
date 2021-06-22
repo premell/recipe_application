@@ -14,5 +14,3 @@ export const compareObjects = (ob1, ob2) =>{
 	});
 	return match
 }
-
-export default {}

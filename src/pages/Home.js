@@ -1,32 +1,29 @@
 import React from "react"
 import {useState, useEffect } from "react"
-import { observer } from "mobx-react"
 
 import RecipeList from "../components/RecipeList"
 import CategoryFilter from "../components/CategoryFilter"
 import RarityFilter from "../components/RarityFilter"
 import IngredientFilter from "../components/IngredientFilter"
 import EditRecipe from "../components/EditRecipe"
+import UnsavedWarning from "../components/UnsavedWarning"
 
+import {useRecoilState } from "recoil"
+import {editSaved as editSavedAtom, unsavedWarning as unsavedWarningAtom, recipes as recipesAtom, showEdit as showEditAtom, currentlyEdited as currentlyEditedAtom} from "../atoms"
 
-import { useMobxStore } from "../MobxContext"
-import { recipes, availableIngredients, availableRarity, availableCategories  } from "../data"
-
-
-const Home = observer(() => {
+const Home = () => {
 
 	const [filteredRecipes, setFilteredRecipes] = useState([])
 	const [categoryFilters, setCategoryFilters] = useState(['all'])
-	const [rarityFilters, setRarityFilters] = useState(['all'])
 	const [ingredientFilters, setIngredientFilters] = useState(['all'])
 
-	const mobxStore = useMobxStore()
+	const [ currentlyEdited, setCurrentlyEdited] = useRecoilState(currentlyEditedAtom)
+	const [ showEdit, setShowEdit] = useRecoilState(showEditAtom)
+	const [ recipes, setRecipes] = useRecoilState(recipesAtom)
 
-
-	useEffect(() => {
-	},[mobxStore.showEdit])
-
-
+	const [editSaved, setEditSaved] = useRecoilState(editSavedAtom);
+	const [unsavedWarning, setUnsavedWarning] =useRecoilState(unsavedWarningAtom);
+ 
 	useEffect(() => {
 		setFilteredRecipes(recipes)
 	}, [recipes])
@@ -35,34 +32,23 @@ const Home = observer(() => {
 		let recipesToFilter = recipes
 
 		if(!categoryFilters.includes("all")){
-		categoryFilters.forEach((category,index) => {
+		categoryFilters.forEach((category) => {
 			recipesToFilter = recipesToFilter.filter(recipe => recipe.categories.includes(category))
 		})
 
 		}
-		if(!categoryFilters.includes("all")){
-
-		rarityFilters.forEach((rarity,index) => {
-			recipesToFilter = recipesToFilter.filter(recipe => recipe.categories.includes(rarity))
-		})
-		}
-		if(!categoryFilters.includes("all")){
-		ingredientFilters.forEach((ingredient,index) => {
+		if(!ingredientFilters.includes("all")){
+		ingredientFilters.forEach((ingredient) => {
 			recipesToFilter = recipesToFilter.filter(recipe => recipe.categories.includes(ingredient))
 		})
 			}
 
 		setFilteredRecipes(recipesToFilter)
-	
-	}, [categoryFilters, rarityFilters, ingredientFilters])
 
+	}, [categoryFilters,  ingredientFilters])
 
 	const updateCategoryFilters = (categories) => {
 		setCategoryFilters(categories)
-	}
-
-	const updateRarityFilters= (rarities) => {
-		setRarityFilters(...rarities)
 	}
 
 	const updateIngredientsFilters = (ingredients) => {
@@ -71,15 +57,17 @@ const Home = observer(() => {
 
 	return(
 		<>
-			<div style={{display : `${mobxStore.showEdit ? 'block' : "none" }`}} className={`${mobxStore.showEdit ? 'hejsan':'hidden'}`}>
+			<div style={{display : `${unsavedWarning? 'block' : "none" }`}}>
+				<UnsavedWarning/>
+			</div> 
+			<div style={{display : `${showEdit ? 'block' : "none" }`}}>
 				<EditRecipe/>
 			</div>
 			<CategoryFilter updateCategoryFilters={updateCategoryFilters}/>
-			<RarityFilter updateRarityFilters={updateRarityFilters}/>
 			<IngredientFilter updateIngredientsFilters={updateIngredientsFilters}/>
 			<RecipeList recipes={filteredRecipes}/>
 		</>
 	)
-})
+}
 
 export default Home 

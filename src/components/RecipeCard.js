@@ -1,35 +1,38 @@
-import React from "react"
-import {Link } from "react-router-dom"
+import React from 'react';
+import { Link, useParams } from 'react-router-dom';
 
-import { useMobxStore } from "../MobxContext"
+import { useEffect } from 'react';
 
-const RecipeCard = ({recipe}) => {
+import { useRecoilState } from 'recoil';
+import {
+	showEdit as showEditAtom,
+	currentlyEdited as currentlyEditedAtom,
+	editSaved as editSavedAtom,
+} from '../atoms';
 
-	const mobxStore = useMobxStore()
+const RecipeCard = ({ recipe }) => {
+	const [currentlyEdited, setCurrentlyEdited] = useRecoilState(
+		currentlyEditedAtom
+	);
+	const [showEdit, setShowEdit] = useRecoilState(showEditAtom);
+	const [editSaved, setEditSaved] = useRecoilState(editSavedAtom);
 
 	const setEdited = () => {
-		mobxStore.setShowEdit()
-		mobxStore.setCurrentlyEdited(recipe)
-	}
+		if (!editSaved && showEdit) return
+		setShowEdit(true);
+		setCurrentlyEdited(recipe);
+	};
 
-	const goToDetails = () => {
-				
+	const goToDetails = () => {};
 
-
-	}
-
-	return(
+	return (
 		<>
-			<Link to={`/recipe/${recipe.id}`}>
-				details
-				</Link>
-		<div onClick={goToDetails}>
-		{recipe.name}
-		</div>
-		<button onClick={setEdited}>Edit</button>
-
+			<Link to={`/recipe/${recipe.id}`}>details</Link>
+			<div onClick={goToDetails}>{recipe.name}</div>
+			<div></div>
+			<button onClick={setEdited}>Edit</button>
 		</>
-	)
-}
+	);
+};
 
-export default RecipeCard 
+export default RecipeCard;

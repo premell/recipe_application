@@ -17,5 +17,3 @@ export const flattenObject = (ob) =>  {
 	}
 	return toReturn;
 };
-
-export default {} 
