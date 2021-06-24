@@ -18,7 +18,11 @@ const DetailedRecipe = () => {
 		let { name, categories } = recipe[0]
 	})
 	return(
+
 		<div>
+			<Link to="/">
+				GO BACK TO HOME
+			</Link>
 		</div>
 	)
 }

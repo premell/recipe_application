@@ -35,6 +35,13 @@ export const recipes = atom({
 			"Main course"
 		],
 		id:"V1StGXR8_Z5jdHi6B-myT"
+	},
+	{
+		name: "Hamburgare",
+		categories:[
+			"Main course"
+		],
+		id:"asdf1StGXR8_Z5jdHi6B-myT"
 	}
 ]
 ,effects_UNSTABLE: [persistAtom],
@@ -72,4 +79,17 @@ export const unsavedWarning= atom({
 export const updatedRecipe= atom({
 	key:"updatedRecipe", 
 	default: {},
+})
+export const recipeToAdd= atom({
+	key:"recipeToAdd", 
+	default: {
+		name:"",
+		id: "",
+		categories:[
+			""
+		],
+
+
+
+		},
 })

@@ -51,11 +51,12 @@ const EditRecipe  = () => {
 	}
 
 	const closeEdit = (e) =>{
+		console.log("close")
 		if(!localIsSaved && !localUnsavedWarning){
 			setUnsavedWarning(true)
 			return
 		}
-		if(localIsSaved && localShowEdit){
+		else if(localIsSaved && localShowEdit){
 		 setUpdatedRecipe({})
 		 setShowEdit(false)
 		 setCurrentlyEdited({})
@@ -72,7 +73,7 @@ const change = (e) => {
 	return(
 		<>
 		<div className="container" ref={ref}>
-				<button className="button" onClick={() => closeEdit}>Close</button>
+				<button className="button" onClick={closeEdit}>Close</button>
 				<div className="content_container">
 					<input onChange={change} value={updatedRecipe.name}/>
 				<div className="input_field">{updatedRecipe.name}</div>
