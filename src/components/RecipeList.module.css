@@ -1,0 +1,44 @@
+:root{
+  --card-width:300px;
+  --card-height:300px;
+  --desc-height:150px;
+
+}
+
+img{
+  width: 100%;
+  height: calc(100% - var(--desc-height));
+  object-fit: cover; /*magic*/
+    }
+
+
+.recipe_container{
+  margin: 0 auto;
+  width:90%;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap: 50px;
+}
+
+.recipe_card{
+  border-radius:12px 12px 0px 0px;
+  overflow: hidden;
+  
+
+  width: var(--card-width);
+  height: calc(var(--card-height) + var(--desc-height));
+
+  position:relative;
+}
+
+.card_desc{
+  position:absolute;
+  top: var(--card-height);
+  background-color:blue;
+  width: var(--card-width);
+  height:var(--desc-height);
+
+  border-radius:0px 0px 12px 12px ;
+  overflow: hidden;
+}
