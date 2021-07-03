@@ -1,11 +1,17 @@
-import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
+import { atom } from "recoil";
 
 const { persistAtom } = recoilPersist();
 
 export const currentlyEdited = atom({
   key: "currentlyEdited",
-  default: {},
+  default: {
+    name: "",
+    img: "",
+    rating: 0,
+    categories: [],
+    id: "",
+  },
 });
 
 export const showEdit = atom({
@@ -24,18 +30,21 @@ export const recipes = atom({
     {
       name: "Meat Balls",
       img: "2MGIxF.jpg",
+      rating: 3.5,
       categories: ["Desert", "Vegetarian"],
       id: "1StGXR8_Z5jdHi6B-myT",
     },
     {
       name: "Pancakes",
       img: "2MGIxF.jpg",
+      rating: 3.5,
       categories: ["Main course"],
       id: "V1StGXR8_Z5jdHi6B-myT",
     },
     {
       name: "Hamburgare",
       img: "2MGIxF.jpg",
+      rating: 3.5,
       categories: ["Main course"],
       id: "asdf1StGXR8_Z5jdHi6B-myT",
     },
@@ -46,12 +55,12 @@ export const recipes = atom({
 export const availableCategories = atom({
   key: "availableCategories",
   default: [
-    "Vegetarian",
-    "Gluten-free",
-    "Dairy-free",
-    "Desert",
-    "Main course",
-    "Breakfast",
+    { label: "Vegetarian", value: "Vegetarian" },
+    { label: "Gluten-free", value: "Gluten-free" },
+    { label: "Dairy-free", value: "Dairy-free" },
+    { label: "Desert", value: "Desert" },
+    { label: "Main course", value: "Main course" },
+    { label: "Breakfast", value: "Breakfast" },
   ],
   effects_UNSTABLE: [persistAtom],
 });
@@ -72,13 +81,22 @@ export const unsavedWarning = atom({
 });
 export const updatedRecipe = atom({
   key: "updatedRecipe",
-  default: {},
+  default: {
+    name: "",
+    img: "",
+    rating: 0,
+    categories: [],
+    id: "",
+  },
 });
+
 export const recipeToAdd = atom({
   key: "recipeToAdd",
   default: {
     name: "",
+    img: "",
+    rating: 0,
+    categories: [],
     id: "",
-    categories: [""],
   },
 });

@@ -1,7 +1,9 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
 
 import { useEffect } from "react";
+
+import ReactStars from "react-rating-stars-component";
+import { Link } from "react-router-dom";
 
 import { useRecoilState } from "recoil";
 import {
@@ -17,7 +19,6 @@ const RecipeCard = ({ recipe }) => {
     useRecoilState(currentlyEditedAtom);
   const [showEdit, setShowEdit] = useRecoilState(showEditAtom);
   const [editSaved, setEditSaved] = useRecoilState(editSavedAtom);
-  console.log(`../images/${recipe.img}`);
 
   const setEdited = () => {
     if (!editSaved && showEdit) return;
@@ -25,13 +26,26 @@ const RecipeCard = ({ recipe }) => {
     setCurrentlyEdited(recipe);
   };
 
-  const goToDetails = () => {};
-
   return (
     <div className={`${RecipeListCss.recipe_card}`}>
       <img src={require(`../images/${recipe.img}`).default} />
       <div className={RecipeListCss.card_desc}>
-        <p>hejsan</p>
+        <Link to={`/recipe/${recipe.id}`}>{recipe.name}</Link>
+
+        <ReactStars
+          count={5}
+          value={recipe.rating}
+          size={24}
+          isHalf={true}
+          emptyIcon={<i className="far fa-star"></i>}
+          halfIcon={<i className="fa fa-star-half-alt"></i>}
+          fullIcon={<i className="fa fa-star"></i>}
+          activeColor="#ffd700"
+          edit={false}
+        />
+        <div onClick={setEdited} className={RecipeListCss.edit_btn}>
+          Edit Recipe
+        </div>
       </div>
     </div>
   );

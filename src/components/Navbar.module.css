@@ -1,0 +1,39 @@
+
+.container{
+  margin-top:25px;
+  margin-left:5%;
+  margin-right:5%;
+  display: flex; 
+  justify-content:space-evenly;
+
+}
+
+.link{
+  color: #fc035e;
+}
+.home{
+    font-size:50px;
+}
+
+a{
+  white-space: nowrap;
+    font-size:50px;
+  text-decoration: none!important; 
+}
+a:hover {
+  color:#b80748; 
+}
+ a:visited{
+      color: /* some color */;
+}
+
+/* selected link */
+a:active {
+  color:#780630;
+}
+
+@media (max-width: 1000px){
+  .container{
+    flex-wrap: wrap; 
+  }
+}

@@ -16,6 +16,7 @@ import {
   currentlyEdited as currentlyEditedAtom,
 } from "../atoms";
 
+
 const Home = () => {
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [categoryFilters, setCategoryFilters] = useState(["all"]);

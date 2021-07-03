@@ -1,21 +1,15 @@
-import React from 'react';
+import React from "react";
 
-import { render } from 'react-dom';
-import App from './App';
+import { render } from "react-dom";
+import App from "./App";
 
-import {RecoilRoot } from "recoil"
-
-
+import { RecoilRoot } from "recoil";
 
 render(
-	<React.StrictMode>
-
-		<RecoilRoot >
-
-    <App />
-		</RecoilRoot>
-
-	</React.StrictMode>,
-	document.getElementById("root")
+  <React.StrictMode>
+    <RecoilRoot>
+      <App />
+    </RecoilRoot>
+  </React.StrictMode>,
+  document.getElementById("root")
 );
-

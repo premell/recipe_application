@@ -1,7 +1,9 @@
 import React from "react";
 import { useEffect } from "react";
+import ReactStars from "react-rating-stars-component";
 
 import EditRecipeCss from "./EditRecipe.module.css";
+import EditableCategories from "./EditableCategories";
 
 import { useDetectClickOutside } from "react-detect-click-outside";
 import { compareObjects } from "../utils/compareObjects";
@@ -37,7 +39,7 @@ const EditRecipe = () => {
 
   useEffect(() => {
     localShowEdit = showEdit;
-  }, [showEdit, setUpdatedRecipe]);
+  }, [showEdit, updatedRecipe]);
   useEffect(() => {
     localIsSaved = editSaved;
   }, [editSaved]);
@@ -62,40 +64,83 @@ const EditRecipe = () => {
   };
 
   const closeEdit = (e) => {
-    console.log("close");
     if (!localIsSaved && !localUnsavedWarning) {
+      console.log("Save before exiting");
       setUnsavedWarning(true);
       return;
     } else if (localIsSaved && localShowEdit) {
-      setUpdatedRecipe({});
+      setUpdatedRecipe({
+        name: "",
+        img: "",
+        rating: 0,
+        categories: [],
+        id: "",
+      });
       setShowEdit(false);
-      setCurrentlyEdited({});
+      setCurrentlyEdited({
+        name: "",
+        img: "",
+        rating: 0,
+        categories: [],
+        id: "",
+      });
     }
+  };
+  const ratingChanged = (newRating) => {
+    console.log(newRating);
   };
 
   const ref = useDetectClickOutside({ onTriggered: closeEdit });
 
-  const change = (e) => {
+  const handleChange = (e) => {
     setUpdatedRecipe({ ...localUpdatedRecipe, name: e.target.value });
   };
 
-  return (
-    <>
-      <div className={EditRecipeCss.container} ref={ref}>
-        <button className={EditRecipeCss.button} onClick={closeEdit}>
-          Close
-        </button>
-        <div className={EditRecipeCss.content_container}>
-          <input onChange={change} value={updatedRecipe.name} />
-          <div className={EditRecipeCss.input_field}>{updatedRecipe.name}</div>
-          <button className={EditRecipeCss.button} onClick={save}>
-            Save
-          </button>
+  console.log("updatedRecipe:", updatedRecipe);
+
+  if (updatedRecipe.img === "") {
+    return <></>;
+  } else {
+    return (
+      <div className={EditRecipeCss.outside_container}>
+        <div className={EditRecipeCss.container} ref={ref}>
+          <div className={EditRecipeCss.close_btn} onClick={closeEdit}>
+            Close
+          </div>
+          <img
+            className={EditRecipeCss.img}
+            src={require(`../images/${updatedRecipe.img}`).default}
+          />
+          <div className={EditRecipeCss.head_container}>
+            <input
+              className={EditRecipeCss.name_input_field}
+              onChange={handleChange}
+              value={updatedRecipe.name}
+            />
+            <ReactStars
+              count={5}
+              value={updatedRecipe.rating}
+              onChange={ratingChanged}
+              size={50}
+              isHalf={true}
+              emptyIcon={<i className="far fa-star"></i>}
+              halfIcon={<i className="fa fa-star-half-alt"></i>}
+              fullIcon={<i className="fa fa-star"></i>}
+              activeColor="#ffd700"
+              edit={true}
+            />
+          </div>
+          <div className={EditRecipeCss.main_container}>
+            <EditableCategories categories={updatedRecipe.categories} />
+            <div className={EditRecipeCss.save_btn} onClick={save}>
+              Save
+            </div>
+            <div>{updatedRecipe.name}</div>
+          </div>
         </div>
-        <div>{updatedRecipe.name}</div>
       </div>
-    </>
-  );
+    );
+  }
 };
 
 export default EditRecipe;

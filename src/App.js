@@ -1,38 +1,34 @@
-import Home from "./pages/Home"
-import AddRecipe from "./pages/AddRecipe"
-import GenerateList from "./pages/GenerateList"
-import DetailedRecipe from "./pages/DetailedRecipe"
-import ErrorPage from "./pages/ErrorPage"
-import Navbar from "./components/Navbar"
+import Home from "./pages/Home";
+import AddRecipe from "./pages/AddRecipe";
+import GenerateList from "./pages/GenerateList";
+import DetailedRecipe from "./pages/DetailedRecipe";
+import ErrorPage from "./pages/ErrorPage";
+import Navbar from "./components/Navbar";
 
-import React from "react"
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
-
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
   return (
-
     <Router>
-      <Navbar/>
+      <Navbar />
       <Switch>
         <Route exact path="/">
-          <Home/>
+          <Home />
         </Route>
         <Route path="/add_recipe">
-          <AddRecipe/>
+          <AddRecipe />
         </Route>
         <Route path="/generate_list">
-          <GenerateList/>
+          <GenerateList />
         </Route>
         <Route path="/recipe/:id">
-          <DetailedRecipe/>
+          <DetailedRecipe />
         </Route>
         <Route path="*">
-          <ErrorPage/>
+          <ErrorPage />
         </Route>
       </Switch>
-
-
     </Router>
   );
 }
