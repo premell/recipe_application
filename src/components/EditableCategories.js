@@ -1,21 +1,38 @@
-import React from "react";
+import React, { useEffect} from "react";
+import { useRecoilState } from "recoil";
 
 import EditableCategoriesCss from "./EditableCategoriesCss.module.css";
 import AddCategory from "./AddCategory";
 
-const EditableCategories = ({ categories }) => {
+import { updatedRecipe as updatedRecipeAtom } from "../atoms"
+
+const EditableCategories = () => {
+
+  const [updatedRecipe, setUpdatedRecipe ] = useRecoilState(updatedRecipeAtom)
+
+  useEffect(() => {
+    console.log(updatedRecipe)
+  },[updatedRecipe])
+
+  const updateRecipeFromSelector = (recipe) => {
+    console.log(recipe)
+    setUpdatedRecipe({...recipe})
+  }
+
+
   return (
+    <>
+      <AddCategory recipe={updatedRecipe} setUpdatedRecipeMethod={updateRecipeFromSelector}/>
     <div className={EditableCategoriesCss.main_container}>
-      {categories.map((category) => {
+      {updatedRecipe.categories.map((category) => {
         return (
-          <div className={EditableCategoriesCss.item}>
+          <div key={category} className={EditableCategoriesCss.item}>
             <div>{category}</div>
-            <div>Delete</div>
           </div>
         );
       })}
-            <AddCategory />
     </div>
+    </>
   );
 };
 export default EditableCategories;

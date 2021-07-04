@@ -37,12 +37,12 @@ export function createMobxStore() {
 		setAvailableIngredients(ingredients) {
 			this.availableIngredients = ingredients;
 		},
-		currentlyEdited: {},
-		setCurrentlyEdited(recipe) {
-			this.currentlyEdited = recipe;
+		isCurrentlyEditing: {},
+		etIsCurrentlyEditing(recipe) {
+			this.isCurrentlyEditing = recipe;
 		},
-		removeCurrentlyEdited(recipe) {
-			this.currentlyEdited = {};
+		removeisCurrentlyEditing(recipe) {
+			this.isCurrentlyEditing = {};
 		},
 		showEdit: false,
 		setShowEdit() {

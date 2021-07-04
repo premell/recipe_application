@@ -3,8 +3,8 @@ import { atom } from "recoil";
 
 const { persistAtom } = recoilPersist();
 
-export const currentlyEdited = atom({
-  key: "currentlyEdited",
+export const isCurrentlyEditing = atom({
+  key: "isCurrentlyEditing",
   default: {
     name: "",
     img: "",
@@ -85,7 +85,7 @@ export const updatedRecipe = atom({
     name: "",
     img: "",
     rating: 0,
-    categories: [],
+    categories: [""],
     id: "",
   },
 });
@@ -96,7 +96,7 @@ export const recipeToAdd = atom({
     name: "",
     img: "",
     rating: 0,
-    categories: [],
+    categories: [""],
     id: "",
   },
 });

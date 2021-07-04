@@ -15,27 +15,19 @@ import {
   editSaved as editSavedAtom,
   recipes as recipesAtom,
   showEdit as showEditAtom,
-  currentlyEdited as currentlyEditedAtom,
 } from "../atoms";
 
 let localShowEdit;
 let localIsSaved;
 let localUnsavedWarning;
-let localUpdatedRecipe;
 
 const EditRecipe = () => {
-  const [currentlyEdited, setCurrentlyEdited] =
-    useRecoilState(currentlyEditedAtom);
   const [showEdit, setShowEdit] = useRecoilState(showEditAtom);
   const [recipes, setRecipes] = useRecoilState(recipesAtom);
   const [editSaved, setEditSaved] = useRecoilState(editSavedAtom);
   const [unsavedWarning, setUnsavedWarning] =
     useRecoilState(unsavedWarningAtom);
   const [updatedRecipe, setUpdatedRecipe] = useRecoilState(updatedRecipeAtom);
-
-  useEffect(() => {
-    setUpdatedRecipe(currentlyEdited);
-  }, [currentlyEdited]);
 
   useEffect(() => {
     localShowEdit = showEdit;
@@ -48,7 +40,9 @@ const EditRecipe = () => {
   }, [unsavedWarning]);
 
   useEffect(() => {
-    localUpdatedRecipe = updatedRecipe;
+    console.log(updatedRecipe)
+},[updatedRecipe])
+  useEffect(() => {
     let savedRecipe = recipes.filter(
       (recipe) => recipe.id === updatedRecipe.id
     );
@@ -56,14 +50,15 @@ const EditRecipe = () => {
     else setEditSaved(false);
   }, [updatedRecipe, recipes]);
 
-  const save = () => {
+  const save = (updatedRecipe, recipes) => {
     const allUpdatedRecipes = recipes.map((recipe) =>
-      recipe.id === localUpdatedRecipe.id ? localUpdatedRecipe : recipe
+      recipe.id === updatedRecipe.id ? updatedRecipe : recipe
     );
-    setRecipes(allUpdatedRecipes, [setEditSaved]);
+    setRecipes(allUpdatedRecipes);
+    setEditSaved(true)
   };
 
-  const closeEdit = (e) => {
+  const closeEdit = () => {
     if (!localIsSaved && !localUnsavedWarning) {
       console.log("Save before exiting");
       setUnsavedWarning(true);
@@ -73,30 +68,22 @@ const EditRecipe = () => {
         name: "",
         img: "",
         rating: 0,
-        categories: [],
+        categories: [""],
         id: "",
       });
       setShowEdit(false);
-      setCurrentlyEdited({
-        name: "",
-        img: "",
-        rating: 0,
-        categories: [],
-        id: "",
-      });
     }
   };
+
   const ratingChanged = (newRating) => {
     console.log(newRating);
   };
 
   const ref = useDetectClickOutside({ onTriggered: closeEdit });
 
-  const handleChange = (e) => {
-    setUpdatedRecipe({ ...localUpdatedRecipe, name: e.target.value });
+  const handleChange = (e, updatedRecipe) => {
+    setUpdatedRecipe({...updatedRecipe, name: e.target.value });
   };
-
-  console.log("updatedRecipe:", updatedRecipe);
 
   if (updatedRecipe.img === "") {
     return <></>;
@@ -114,7 +101,7 @@ const EditRecipe = () => {
           <div className={EditRecipeCss.head_container}>
             <input
               className={EditRecipeCss.name_input_field}
-              onChange={handleChange}
+              onChange={(e) => handleChange(e, updatedRecipe)}
               value={updatedRecipe.name}
             />
             <ReactStars
@@ -131,8 +118,8 @@ const EditRecipe = () => {
             />
           </div>
           <div className={EditRecipeCss.main_container}>
-            <EditableCategories categories={updatedRecipe.categories} />
-            <div className={EditRecipeCss.save_btn} onClick={save}>
+            <EditableCategories/>
+            <div className={EditRecipeCss.save_btn} onClick={() => save(updatedRecipe, recipes)}>
               Save
             </div>
             <div>{updatedRecipe.name}</div>

@@ -12,7 +12,7 @@ const CategoryFilter = ({ updateCategoryFilters }) => {
 
 	const updateCategories = () => {
 		const categories = ["all"]
-		updateCategoryFilters(categories)
+		updateCategoryFilters([...categories])
 	}
 	useEffect(() => {
 		updateCategories()

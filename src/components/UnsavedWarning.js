@@ -2,20 +2,20 @@ import React from 'react';
 import { useDetectClickOutside } from 'react-detect-click-outside';
 import { useRecoilState } from 'recoil';
 
-import {unsavedWarning as unsavedWarningAtom, updatedRecipe as updatedRecipeAtom, recipes as recipesAtom, showEdit as showEditAtom, currentlyEdited as currentlyEditedAtom } from "../atoms"
+import {unsavedWarning as unsavedWarningAtom, updatedRecipe as updatedRecipeAtom, recipes as recipesAtom, showEdit as showEditAtom, isCurrentlyEditing as isCurrentlyEditingAtom } from "../atoms"
 
 
 
 const UnsavedWarning = () => {
 
 	const [ updatedRecipe, setUpdatedRecipe] = useRecoilState(updatedRecipeAtom)
-	const [ currentlyEdited, setCurrentlyEdited] = useRecoilState(currentlyEditedAtom)
+	const [ isCurrentlyEditing, setIsCurrentlyEditing] = useRecoilState(isCurrentlyEditingAtom)
 	const [ showEdit, setShowEdit] = useRecoilState(showEditAtom)
 	const [ recipes, setRecipes] = useRecoilState(recipesAtom)
 	const [unsavedWarning, setUnsavedWarning] =useRecoilState(unsavedWarningAtom);
 
 	const closeWarning = () => {
-		setUnsavedWarning(false);
+    //setUnsavedWarning(false);
 	};
 
 	const ref = useDetectClickOutside({ onTriggered: closeWarning });
@@ -23,16 +23,26 @@ const UnsavedWarning = () => {
 	const saveChanges = () =>  {
 		const allUpdatedRecipes = recipes.map(recipe => recipe.id === updatedRecipe.id ? updatedRecipe : recipe)
 		setRecipes(allUpdatedRecipes) 
-		 setUpdatedRecipe({})
+		 setUpdatedRecipe({
+    name: "",
+    img: "",
+    rating: 0,
+    categories: [""],
+    id: "",
+    })
 		 setShowEdit(false)
-		 setCurrentlyEdited({})
 		 setUnsavedWarning(false)
 	}
 
 	const discardChanges= () => {
-		 setUpdatedRecipe({})
+		 setUpdatedRecipe({
+    name: "",
+    img: "",
+    rating: 0,
+    categories: [""],
+    id: "",
+    })
 		 setShowEdit(false)
-		 setCurrentlyEdited({})
 		 setUnsavedWarning(false)
 	}
 

@@ -13,7 +13,7 @@ import {
   unsavedWarning as unsavedWarningAtom,
   recipes as recipesAtom,
   showEdit as showEditAtom,
-  currentlyEdited as currentlyEditedAtom,
+  isCurrentlyEditing as isCurrentlyEditingAtom,
 } from "../atoms";
 
 
@@ -22,8 +22,8 @@ const Home = () => {
   const [categoryFilters, setCategoryFilters] = useState(["all"]);
   const [ingredientFilters, setIngredientFilters] = useState(["all"]);
 
-  const [currentlyEdited, setCurrentlyEdited] =
-    useRecoilState(currentlyEditedAtom);
+  const [isCurrentlyEditing, etIsCurrentlyEditing] =
+    useRecoilState(isCurrentlyEditingAtom);
   const [showEdit, setShowEdit] = useRecoilState(showEditAtom);
   const [recipes, setRecipes] = useRecoilState(recipesAtom);
 
@@ -57,11 +57,11 @@ const Home = () => {
   }, [categoryFilters, ingredientFilters]);
 
   const updateCategoryFilters = (categories) => {
-    setCategoryFilters(categories);
+    setCategoryFilters([...categories]);
   };
 
   const updateIngredientsFilters = (ingredients) => {
-    setIngredientFilters(...ingredients);
+    setIngredientFilters([...ingredients]);
   };
 
   return (

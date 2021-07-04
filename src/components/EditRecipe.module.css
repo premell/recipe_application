@@ -1,6 +1,7 @@
 .img{
   width: 100%;
   height:auto;
+  overflow:hidden;
 }
 
 .outside_container{
@@ -10,12 +11,12 @@
   height:100%;
   background-color: rgba(229,229,229, 0.85);
   z-index:999;
-      overflow: auto;
-
+  overflow: auto;
 }
 
 .container{
   border-radius:25px;
+  overflow: hidden;
   background-color:white;
   box-shadow:100px;
 	position:fixed; 
@@ -64,7 +65,7 @@
 
 
 .close_btn{
-  position:relative;
+  position:absolute;
   left:calc(100% - 70px);
   margin: 10px;
   cursor: pointer ;
