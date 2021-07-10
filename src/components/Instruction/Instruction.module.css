@@ -1,0 +1,27 @@
+.container {
+  display: grid;
+  align-items: flex-start;
+}
+
+.container:hover .buttons {
+  visibility: visible;
+}
+
+.buttons {
+  visibility: hidden;
+}
+
+p {
+  margin: 0;
+}
+
+textarea {
+  resize: none;
+}
+
+.delete_button {
+  background-color: red;
+}
+.add_button {
+  background-color: green;
+}

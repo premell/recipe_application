@@ -132,6 +132,7 @@ export const recipeToAdd = atom({
     img: "",
     rating: 0,
     categories: [""],
+    instructions: ["hejsan", "vadå då", ""],
     id: "",
   },
 });

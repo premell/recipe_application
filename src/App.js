@@ -1,5 +1,5 @@
 import Home from "./pages/Home";
-import AddRecipe from "./pages/AddRecipe";
+import CreateNewRecipe from "./pages/CreateNewRecipe";
 import GenerateList from "./pages/GenerateList";
 import DetailedRecipe from "./pages/DetailedRecipe";
 import ErrorPage from "./pages/ErrorPage";
@@ -17,7 +17,7 @@ function App() {
           <Home />
         </Route>
         <Route path="/add_recipe">
-          <AddRecipe />
+          <CreateNewRecipe />
         </Route>
         <Route path="/generate_list">
           <GenerateList />
