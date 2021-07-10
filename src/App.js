@@ -3,7 +3,7 @@ import AddRecipe from "./pages/AddRecipe";
 import GenerateList from "./pages/GenerateList";
 import DetailedRecipe from "./pages/DetailedRecipe";
 import ErrorPage from "./pages/ErrorPage";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar/Navbar";
 
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";

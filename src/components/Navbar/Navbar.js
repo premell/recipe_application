@@ -16,13 +16,13 @@ const Navbar = () => {
   return (
     <nav>
       <div className={NavbarCss.container}>
-        <Link to="/" className={`${NavbarCss.link} ${NavbarCss.home}`}>
+        <Link to="/" className={`${NavbarCss.nav_links} ${NavbarCss.home}`}>
           Home
         </Link>
-        <Link className={NavbarCss.link} to="/add_recipe">
+        <Link className={NavbarCss.nav_links} to="/add_recipe">
           Add Recipe
         </Link>
-        <Link className={NavbarCss.link} to="/generate_list">
+        <Link className={NavbarCss.nav_links} to="/generate_list">
           Generate List
         </Link>
       </div>

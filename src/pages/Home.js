@@ -1,29 +1,28 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-
-import RecipeList from "../components/RecipeList";
-import CategoryFilter from "../components/CategoryFilter";
-import IngredientFilter from "../components/IngredientFilter";
-import EditRecipe from "../components/EditRecipe";
-import UnsavedWarning from "../components/UnsavedWarning";
-
 import { useRecoilState } from "recoil";
+
 import {
   editSaved as editSavedAtom,
-  unsavedWarning as unsavedWarningAtom,
+  isCurrentlyEditing as isCurrentlyEditingAtom,
   recipes as recipesAtom,
   showEdit as showEditAtom,
-  isCurrentlyEditing as isCurrentlyEditingAtom,
+  unsavedWarning as unsavedWarningAtom,
 } from "../atoms";
-
+import CategoryFilter from "../components/CategoryFilter/CategoryFilter";
+import EditRecipe from "../components/EditRecipe/EditRecipe";
+import IngredientFilter from "../components/IngredientFilter/IngredientFilter";
+import RecipeList from "../components/RecipeList/RecipeList";
+import UnsavedWarning from "../components/UnsavedWarning/UnsavedWarning";
 
 const Home = () => {
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [categoryFilters, setCategoryFilters] = useState(["all"]);
   const [ingredientFilters, setIngredientFilters] = useState(["all"]);
 
-  const [isCurrentlyEditing, etIsCurrentlyEditing] =
-    useRecoilState(isCurrentlyEditingAtom);
+  const [isCurrentlyEditing, etIsCurrentlyEditing] = useRecoilState(
+    isCurrentlyEditingAtom
+  );
   const [showEdit, setShowEdit] = useRecoilState(showEditAtom);
   const [recipes, setRecipes] = useRecoilState(recipesAtom);
 

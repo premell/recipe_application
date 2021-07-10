@@ -15,20 +15,20 @@
     font-size:50px;
 }
 
-a{
+.nav_links{
   white-space: nowrap;
     font-size:50px;
   text-decoration: none!important; 
 }
-a:hover {
+.nav_links:hover {
   color:#b80748; 
 }
- a:visited{
+.nav_links:visited{
       color: /* some color */;
 }
 
 /* selected link */
-a:active {
+.nav_links:active {
   color:#780630;
 }
 

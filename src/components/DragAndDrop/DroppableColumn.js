@@ -1,7 +1,7 @@
 import React from "react";
 
 import DraggableRecipe from "./DraggableRecipe";
-import RecipeCard from "./RecipeCard";
+import RecipeCard from "../RecipeList/RecipeCard";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import uuid from "uuid/v4";
 

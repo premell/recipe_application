@@ -6,7 +6,7 @@ import EditRecipeCss from "./EditRecipe.module.css";
 import EditableCategories from "./EditableCategories";
 
 import { useDetectClickOutside } from "react-detect-click-outside";
-import { compareObjects } from "../utils/compareObjects";
+import { compareObjects } from "../../utils/compareObjects";
 
 import { useRecoilState } from "recoil";
 import {
@@ -15,7 +15,7 @@ import {
   editSaved as editSavedAtom,
   recipes as recipesAtom,
   showEdit as showEditAtom,
-} from "../atoms";
+} from "../../atoms";
 
 let localShowEdit;
 let localIsSaved;
@@ -40,8 +40,8 @@ const EditRecipe = () => {
   }, [unsavedWarning]);
 
   useEffect(() => {
-    console.log(updatedRecipe)
-},[updatedRecipe])
+    console.log(updatedRecipe);
+  }, [updatedRecipe]);
   useEffect(() => {
     let savedRecipe = recipes.filter(
       (recipe) => recipe.id === updatedRecipe.id
@@ -55,7 +55,7 @@ const EditRecipe = () => {
       recipe.id === updatedRecipe.id ? updatedRecipe : recipe
     );
     setRecipes(allUpdatedRecipes);
-    setEditSaved(true)
+    setEditSaved(true);
   };
 
   const closeEdit = () => {
@@ -82,7 +82,7 @@ const EditRecipe = () => {
   const ref = useDetectClickOutside({ onTriggered: closeEdit });
 
   const handleChange = (e, updatedRecipe) => {
-    setUpdatedRecipe({...updatedRecipe, name: e.target.value });
+    setUpdatedRecipe({ ...updatedRecipe, name: e.target.value });
   };
 
   if (updatedRecipe.img === "") {
@@ -96,7 +96,7 @@ const EditRecipe = () => {
           </div>
           <img
             className={EditRecipeCss.img}
-            src={require(`../images/${updatedRecipe.img}`).default}
+            src={require(`../../images/${updatedRecipe.img}`).default}
           />
           <div className={EditRecipeCss.head_container}>
             <input
@@ -118,8 +118,11 @@ const EditRecipe = () => {
             />
           </div>
           <div className={EditRecipeCss.main_container}>
-            <EditableCategories/>
-            <div className={EditRecipeCss.save_btn} onClick={() => save(updatedRecipe, recipes)}>
+            <EditableCategories />
+            <div
+              className={EditRecipeCss.save_btn}
+              onClick={() => save(updatedRecipe, recipes)}
+            >
               Save
             </div>
             <div>{updatedRecipe.name}</div>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 import { randomizeList } from "../utils/randomizedList";
-import DroppableColumn from "../components/DroppableColumn";
+import DroppableColumn from "../components/DragAndDrop/DroppableColumn";
 
 import { useRecoilState } from "recoil";
 import { recipes as recipesAtom } from "../atoms";
