@@ -1,27 +1,47 @@
 .container {
-  display: grid;
-  align-items: flex-start;
+  width: 100%;
+  display: flex;
+  gap: 3px;
+  margin-top: 10px;
 }
 
-.container:hover .buttons {
+.main_container:hover .buttons {
   visibility: visible;
 }
 
 .buttons {
+  margin: 0;
+  margin-left: 23px;
+  display: block;
   visibility: hidden;
 }
 
 p {
   margin: 0;
+  font-size: 20px;
 }
 
 textarea {
+  flex: 0 0 100%;
+  font-size: 20px;
   resize: none;
 }
 
+.button {
+  margin: 0;
+  width: 80px;
+  display: inline-block;
+  border-radius: 5px;
+  background-color: red;
+  text-align: center;
+  padding: 10px 0;
+}
+
 .delete_button {
+  display: inline-block;
   background-color: red;
 }
 .add_button {
+  display: inline-block;
   background-color: green;
 }

@@ -1,75 +1,76 @@
-import styled from "styled-components";
+import React from "react";
+import { useState } from "react";
+import FolderIcon from "../../assets/folder_icon_transparent.png";
+import {
+  BoxUpload,
+  CloseButton,
+  ImagePreview,
+  Layout,
+} from "./UploadImageResources.js";
 
-export const Layout = styled.div`
-  height: 100%;
-  width: 100%;
-  display: grid;
-  place-items: center;
-  background: #f5f8ff;
-`;
+const UploadImage = () => {
+  const [imageToAdd, setImageToAdd] = useState("");
+  const [isUploaded, setIsUploaded] = useState(false);
+  const [typeFile, setTypeFile] = useState("");
+  const handleImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setTypeFile(e.target.files[0].type);
+      let reader = new FileReader();
 
-export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  padding: 36px 48px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-  border-radius: 20px;
-  text-align: center;
-  p {
-    margin-top: -10px;
-    color: #777;
-  }
-`;
+      reader.onload = function (e) {
+        setImageToAdd(e.target.result);
+        setIsUploaded(true);
+      };
 
-export const BoxUpload = styled.div`
-  display: grid;
-  margin-top: 20px;
-  place-items: center;
-  border: 1px dashed #799cd9;
-  /* padding: 36px 48px; */
-  position: relative;
-  height: 350px;
-  width: 350px;
-  background: #fbfbff;
-  border-radius: 20px;
-  .image-upload {
-    display: flex;
-    flex-wrap: wrap;
-    label {
-      cursor: pointer;
-
-      :hover {
-        opacity: 0.8;
-      }
+      reader.readAsDataURL(e.target.files[0]);
     }
-    > input {
-      display: none;
-    }
-  }
-`;
+  };
 
-export const ImagePreview = styled.div`
-  position: relative;
-  /* cursor: pointer; */
-  #uploaded-image {
-    height: 350px;
-    width: 350px;
-    object-fit: cover;
-    border-radius: 20px;
-  }
-  .close-icon {
-    background: #000;
-    border-radius: 5px;
-    opacity: 0.8;
-    position: absolute;
-    z-index: 10;
-    right: 15px;
-    top: 20px;
-    cursor: pointer;
-    :hover {
-      opacity: 1;
-    }
-  }
-`;
+  return (
+    <Layout>
+      <BoxUpload>
+        <div className="image-upload">
+          {!isUploaded ? (
+            <>
+              <label htmlFor="upload-input">
+                <img
+                  src={FolderIcon}
+                  draggable={"false"}
+                  alt="placeholder"
+                  style={{ width: 120, height: 120, marginLeft: 28.5 }}
+                />
+                <p style={{ color: "#444" }}>Click to upload image</p>
+              </label>
+
+              <input
+                id="upload-input"
+                type="file"
+                accept=".jpg,.jpeg,,.png"
+                onChange={handleImageChange}
+              />
+            </>
+          ) : (
+            <ImagePreview>
+              <CloseButton
+                onClick={() => {
+                  setIsUploaded(false);
+                  setImageToAdd(null);
+                }}
+              >
+                <p>&times;</p>
+              </CloseButton>
+              <img
+                id="uploaded-image"
+                src={imageToAdd}
+                draggable={false}
+                alt="uploaded-img"
+              />
+            </ImagePreview>
+          )}
+        </div>
+      </BoxUpload>
+    </Layout>
+  );
+};
+
+export default UploadImage;

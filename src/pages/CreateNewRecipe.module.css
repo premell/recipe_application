@@ -6,11 +6,19 @@
 
   flex-wrap: wrap;
 
-  justify-items: center;
+  justify-content: center;
   gap: 12px;
+}
+label {
+  font-size: 20px;
 }
 
 input {
-  flex: 0 0 100%;
+  display: block;
+  width: 40%;
+  font-size: 20px;
+}
+
+.instruction_container {
   width: 80%;
 }
