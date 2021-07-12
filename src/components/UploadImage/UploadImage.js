@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FolderIcon from "../../assets/folder_icon_transparent.png";
 import {
   BoxUpload,
@@ -8,7 +8,7 @@ import {
   Layout,
 } from "./UploadImageResources.js";
 
-const UploadImage = () => {
+const UploadImage = ({ setImage }) => {
   const [imageToAdd, setImageToAdd] = useState("");
   const [isUploaded, setIsUploaded] = useState(false);
   const [typeFile, setTypeFile] = useState("");
@@ -25,6 +25,14 @@ const UploadImage = () => {
       reader.readAsDataURL(e.target.files[0]);
     }
   };
+
+  useEffect(() => {
+    setImage({
+      imageToAdd: imageToAdd,
+      isUploaded: isUploaded,
+      typeFile: typeFile,
+    });
+  }, [imageToAdd, isUploaded, typeFile]);
 
   return (
     <Layout>

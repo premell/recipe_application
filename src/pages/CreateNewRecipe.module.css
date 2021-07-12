@@ -22,10 +22,7 @@ input {
   border-color: #f0f0f0;
   border-radius: 10px;
   padding: 5px;
-
-  display: block;
-  width: 40%;
-  font-size: 20px;
+  margin-left: 10px;
 }
 
 .instruction_container {
@@ -42,4 +39,23 @@ input {
   text-align: center;
   padding: 10px 0;
   cursor: pointer;
+}
+
+.error {
+  border-color: red;
+  border-width: 2px;
+}
+
+.error_message {
+  color: #cc0033;
+  font-size: 12px;
+  line-height: 15px;
+  margin: 5px 0 0;
+  margin-left: 75px;
+}
+
+.input_container {
+  display: block;
+  width: 40%;
+  font-size: 20px;
 }

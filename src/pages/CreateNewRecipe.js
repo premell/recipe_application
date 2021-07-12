@@ -12,6 +12,17 @@ import CreateNewRecipeCss from "./CreateNewRecipe.module.css";
 const CreateNewRecipe = () => {
   const [newRecipe, addNewRecipe] = useState({});
   const [recipeToAdd, setRecipeToAdd] = useRecoilState(recipeToAddAtom);
+  const [nameErrors, setNameErrors] = useState({
+    isValid: false,
+    errors: [{ message: "Cannot be empty" }],
+  });
+
+  const [imageErrors, setImageErrors] = useState({
+    isValid: true,
+    errors: [{ message: "" }],
+  });
+
+  const [image, setImage] = useState({});
 
   const instructionContainer = useRef(null);
 
@@ -90,16 +101,26 @@ const CreateNewRecipe = () => {
     });
   };
 
+  const createRecipe = () => {};
+
   return (
     <div className={CreateNewRecipeCss.main_container}>
-      <UploadImage />
-      <label for="name">Name</label>
-      <input
-        placeholder="etc pancakes..."
-        type="name"
-        onChange={handleChange}
-        value={recipeToAdd.name}
-      />
+      <UploadImage setImage={setImage} />
+      <div className={CreateNewRecipeCss.input_container}>
+        <label for="name">Name</label>
+        <input
+          placeholder="etc pancakes..."
+          type="name"
+          onChange={handleChange}
+          value={recipeToAdd.name}
+          className={`${!nameErrors.isValid ? CreateNewRecipeCss.error : ""}`}
+        />
+        {!nameErrors.isValid && (
+          <p className={CreateNewRecipeCss.error_message}>
+            {nameErrors.errors[0].message}
+          </p>
+        )}
+      </div>
       <div
         ref={instructionContainer}
         className={CreateNewRecipeCss.instruction_container}
@@ -118,7 +139,12 @@ const CreateNewRecipe = () => {
           </>
         ))}
       </div>
-      <div className={CreateNewRecipeCss.create_recipe_btn}>Create Recipe</div>
+      <div
+        onClick={createRecipe}
+        className={CreateNewRecipeCss.create_recipe_btn}
+      >
+        Create Recipe
+      </div>
     </div>
   );
 };
