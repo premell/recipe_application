@@ -37,7 +37,7 @@ const UploadImage = () => {
                   src={FolderIcon}
                   draggable={"false"}
                   alt="placeholder"
-                  style={{ width: 120, height: 120, marginLeft: 28.5 }}
+                  style={{ width: 120, height: 120, marginLeft: 55.5 }}
                 />
                 <p style={{ color: "#444" }}>Click to upload image</p>
               </label>

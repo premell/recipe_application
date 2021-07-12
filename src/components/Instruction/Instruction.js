@@ -16,6 +16,7 @@ const Instruction = ({
       <div className={InstructionCss.container}>
         <p>{index + 1}.</p>
         <textarea
+          className="instuctions"
           value={value}
           onChange={(e) => handleChangeTextarea(e, index)}
           placeholder={

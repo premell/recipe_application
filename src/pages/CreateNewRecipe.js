@@ -1,11 +1,11 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 
 import { recipeToAdd as recipeToAddAtom } from "../atoms";
 import Instruction from "../components/Instruction/Instruction";
-import { compareArrays } from "../utils/compareArrays";
 import UploadImage from "../components/UploadImage/UploadImage";
+import { compareArrays } from "../utils/compareArrays";
 
 import CreateNewRecipeCss from "./CreateNewRecipe.module.css";
 
@@ -13,13 +13,24 @@ const CreateNewRecipe = () => {
   const [newRecipe, addNewRecipe] = useState({});
   const [recipeToAdd, setRecipeToAdd] = useRecoilState(recipeToAddAtom);
 
+  const instructionContainer = useRef(null);
+
+  useEffect(() => {
+    console.log("changed");
+  }, [recipeToAdd]);
+
+  useEffect(() => {
+    console.log(instructionContainer.current);
+  }, [instructionContainer]);
+
   useEffect(() => {
     const instructions = [...recipeToAdd.instructions];
 
-    if (instructions[instructions.length - 1] !== "") instructions.push("");
+    if (instructions[instructions.length - 1]?.trim() !== "")
+      instructions.push("");
     else if (
-      instructions[instructions.length - 1] === "" &&
-      instructions[instructions.length - 2] === ""
+      instructions[instructions.length - 1]?.trim() === "" &&
+      instructions[instructions.length - 2]?.trim() === ""
     )
       instructions.pop();
 
@@ -50,6 +61,7 @@ const CreateNewRecipe = () => {
   };
 
   const addInstruction = (index) => {
+    console.log(index);
     const instructions = recipeToAdd.instructions;
     const updatedInstuctions = [...instructions];
     updatedInstuctions.splice(index + 1, 0, "");
@@ -58,6 +70,12 @@ const CreateNewRecipe = () => {
       ...recipeToAdd,
       instructions: [...updatedInstuctions],
     });
+    // instructionContainer.current.children[0].children[
+    //   index
+    // ].children[0].focus();
+    instructionContainer.current.children[
+      index + 1
+    ].children[0].children[1].focus();
   };
   const deleteInstruction = (index) => {
     const instructions = recipeToAdd.instructions;
@@ -82,7 +100,10 @@ const CreateNewRecipe = () => {
         onChange={handleChange}
         value={recipeToAdd.name}
       />
-      <div className={CreateNewRecipeCss.instruction_container}>
+      <div
+        ref={instructionContainer}
+        className={CreateNewRecipeCss.instruction_container}
+      >
         {recipeToAdd.instructions.map((instruction, index) => (
           <>
             <Instruction
@@ -97,8 +118,8 @@ const CreateNewRecipe = () => {
           </>
         ))}
       </div>
+      <div className={CreateNewRecipeCss.create_recipe_btn}>Create Recipe</div>
     </div>
   );
 };
-
 export default CreateNewRecipe;
